@@ -1,12 +1,13 @@
 const express = require("express");
 const commentsRouter = express.Router();
+const commentController = require("../controllers/commentControllers");
 
-commentsRouter.get("/", (req, res) => {
-  res.send(req.params);
-});
+commentsRouter.get("/", commentController.comments);
 
-commentsRouter.get("/:id", (req, res) => {
-  res.send(req.params);
-});
+commentsRouter.post("/", commentController.create_comment);
+
+commentsRouter.get("/:id", commentController.get_comment);
+
+commentsRouter.delete("/:id/delete", commentController.delete_comment);
 
 module.exports = commentsRouter;

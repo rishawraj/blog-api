@@ -7,9 +7,9 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 dotenv.config();
 
-var indexRouter = require("./routes/index");
-const usersRouter = require("./routes/users");
-const postsRouter = require("./routes/posts");
+const indexRouter = require("./routes/index");
+const usersRouter = require("./routes/usersRouter");
+const postsRouter = require("./routes/postsRouter");
 const commentsRouter = require("./routes/commentsRouter");
 
 // connect to db
@@ -42,7 +42,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
-
 app.use("/api/users", usersRouter);
 app.use("/api/posts", postsRouter);
 app.use("/api/posts/:postId/comments", commentsRouter);
