@@ -5,6 +5,7 @@ const Comment = require("../models/comment");
 // !
 exports.comments = (req, res) => {
   Comment.find({ post: req.params.id })
+    .sort({ timestamp: -1 })
     .then((comments) => {
       res.json(comments);
     })
