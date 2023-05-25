@@ -3,7 +3,11 @@ const Post = require("../models/post");
 
 //* todo get all posts
 exports.posts = (req, res) => {
-  Post.find().then((data) => res.json(data));
+  Post.find()
+    .populate("comments")
+    .then((posts) => {
+      res.json(posts);
+    });
 };
 
 //* todo create post
@@ -45,11 +49,13 @@ exports.create_post = [
 
 //* todo get a single post
 exports.get_post = (req, res) => {
-  Post.findById(req.params.postId)
+  Post.findById(req.params.id)
+    .populate("comments") //key
     .then((post) => {
       res.json(post);
     })
     .catch((err) => {
+      console.log(err);
       res.json(err);
     });
 };

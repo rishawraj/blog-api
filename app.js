@@ -7,6 +7,8 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 dotenv.config();
 
+const cors = require("cors");
+
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/usersRouter");
 const postsRouter = require("./routes/postsRouter");
@@ -31,6 +33,8 @@ mongoose
 
 var app = express();
 
+app.use(cors());
+
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "jade");
@@ -44,7 +48,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/posts", postsRouter);
-app.use("/api/posts/:postId/comments", commentsRouter);
+app.use("/api/comments", commentsRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

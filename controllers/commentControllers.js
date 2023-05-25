@@ -2,8 +2,16 @@ const { body, validationResult } = require("express-validator");
 // const Post = require("../models/comment");
 const Comment = require("../models/comment");
 
+// !
 exports.comments = (req, res) => {
-  res.send(req.params);
+  Comment.find({ post: req.params.id })
+    .then((comments) => {
+      res.json(comments);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.send(err);
+    });
 };
 
 exports.get_comment = (req, res) => {
@@ -15,6 +23,9 @@ exports.get_comment = (req, res) => {
       res.json(err);
     });
 };
+
+// create
+// commentsRouter.post("/:id", commentController.create_comment);
 
 exports.create_comment = [
   body("username", "username is required").trim().isLength({ min: 1 }).escape(),
@@ -30,7 +41,7 @@ exports.create_comment = [
       username: req.body.username,
       content: req.body.content,
       timestamp: Date.now(),
-      postId: req.body.postId,
+      post: req.params.id,
     });
 
     newComment

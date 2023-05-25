@@ -2,9 +2,12 @@ const express = require("express");
 const commentsRouter = express.Router();
 const commentController = require("../controllers/commentControllers");
 
-commentsRouter.get("/", commentController.comments);
+// app.use("/api/posts/:postId/comments", commentsRouter);
 
-commentsRouter.post("/", commentController.create_comment);
+commentsRouter.get("/:id", commentController.comments);
+
+// create comment
+commentsRouter.post("/:id", commentController.create_comment);
 
 commentsRouter.get("/:id", commentController.get_comment);
 
