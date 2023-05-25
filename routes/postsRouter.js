@@ -2,8 +2,13 @@ const express = require("express");
 const router = express.Router();
 const postController = require("../controllers/postController");
 
+// app.use("/api/posts", postsRouter);
+
 // GET all posts
 router.get("/", postController.posts);
+
+// get all public posts
+router.get("/public", postController.public_post);
 
 // POST create post
 router.post("/create", postController.create_post);

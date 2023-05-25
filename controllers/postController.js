@@ -3,11 +3,16 @@ const Post = require("../models/post");
 
 //* todo get all posts
 exports.posts = (req, res) => {
-  Post.find()
-    .populate("comments")
-    .then((posts) => {
-      res.json(posts);
-    });
+  Post.find().then((posts) => {
+    return res.json(posts);
+  });
+};
+
+// get public posts
+exports.public_post = (req, res) => {
+  Post.find({ published: true }).then((posts) => {
+    return res.json(posts);
+  });
 };
 
 //* todo create post
@@ -23,15 +28,15 @@ exports.create_post = [
     }
 
     console.log(req.body);
-    const { title, content, published, imgUrl } = req.body;
+    const { title, content, imgUrl } = req.body;
 
     const newPost = new Post({
       title,
       content,
       author: "raj",
-      published,
+      published: false,
       timestamp: Date.now(),
-      imgUrl,
+      imgUrl: imgUrl,
     });
 
     newPost
@@ -42,8 +47,6 @@ exports.create_post = [
       .catch((err) => {
         res.json(err);
       });
-
-    // return res.json(newPost);
   },
 ];
 

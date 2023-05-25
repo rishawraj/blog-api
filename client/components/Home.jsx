@@ -9,7 +9,7 @@ function Home() {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/posts")
+    fetch("http://localhost:8080/api/posts/public")
       .then((res) => {
         if (res.ok) {
           return res.json();
