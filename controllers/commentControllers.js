@@ -1,6 +1,7 @@
 const { body, validationResult } = require("express-validator");
 // const Post = require("../models/comment");
 const Comment = require("../models/comment");
+const jwt = require("jsonwebtoken");
 
 // !
 exports.comments = (req, res) => {
@@ -29,17 +30,38 @@ exports.get_comment = (req, res) => {
 // commentsRouter.post("/:id", commentController.create_comment);
 
 exports.create_comment = [
-  body("username", "username is required").trim().isLength({ min: 1 }).escape(),
   body("content", "content is required").trim().isLength({ min: 1 }).escape(),
 
   (req, res) => {
     const errors = validationResult(req);
+
     if (!errors.isEmpty()) {
       return res.json({ error: errors.array() });
     }
 
+    const token =
+      req.headers.authorization && req.headers.authorization.split(" ")[1];
+
+    let obj;
+
+    jwt.verify(token, "secret_key_0703", (err, decoded) => {
+      if (err) {
+        if (err.name === "TokenExpiredError") {
+          return res.status(401).json({ error: "token expired" });
+          // return res.json({ error: "token expired" });
+          // throw new Error("Token expired");
+        }
+
+        return res.status(401).json({ error: "invalid token" });
+      }
+
+      obj = decoded;
+    });
+
+    let username = obj.username;
+
     const newComment = new Comment({
-      username: req.body.username,
+      username: username,
       content: req.body.content,
       timestamp: Date.now(),
       post: req.params.id,
@@ -54,6 +76,8 @@ exports.create_comment = [
         res.json(err);
       });
   },
+
+  //
 ];
 
 exports.delete_comment = (req, res) => {

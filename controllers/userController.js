@@ -1,10 +1,8 @@
 const { body, validationResult } = require("express-validator");
+const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const jwt = require("passport-jwt");
-// const { use } = require("passport");
 
 const User = require("../models/user");
-const passport = require("passport");
 
 exports.users_get = (req, res) => {
   User.find()
@@ -22,23 +20,24 @@ exports.signup_post = [
 
   body("password", "Password must at least 6 characters long.")
     .trim()
-    .isLength({ min: 6 })
+    .isLength({ min: 3 })
     .escape(),
 
-  body("confirmPassword", "Password must be at least 6 characters long.")
+  body("confirmPassword", "Password must be at least 3 characters long.")
     .trim()
-    .isLength({ min: 6 })
-    .escape()
+    .isLength({ min: 3 })
     .custom(async (value, { req }) => {
-      if (value != req.body.password) {
-        throw new Error("confirmed Password must be same as password");
+      if (value !== req.body.password) {
+        throw new Error("Passwords do not match");
       }
+
       return true;
-    }),
+    })
+    .escape(),
 
   // proces request
-  async (req, res, next) => {
-    const errors = validationResult(req.body);
+  async (req, res) => {
+    const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
       return res.json({ errors: errors.array() });
@@ -100,3 +99,40 @@ exports.get_user = (req, res) => {
 //     );
 //   })(req, res);
 // };
+
+exports.login_post = [
+  body("username", "user must be at least 3 characters long")
+    .trim()
+    .isLength({ min: 3 })
+    .escape(),
+
+  body("password", "Password must be at least 3 characters long")
+    .trim()
+    .isLength({ min: 3 })
+    .escape(),
+
+  async (req, res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.json({ errors: errors.array() });
+    }
+
+    const user = await User.findOne({ username: req.body.username });
+
+    bcrypt.compare(req.body.password, user.password, (err, result) => {
+      if (result) {
+        const payload = { username: user.username, password: user.password };
+        const token = jwt.sign(payload, "secret_key_0703", {
+          expiresIn: "1h",
+        });
+        console.log(token);
+        console.log(user);
+
+        return res.json({ token: token, user: user });
+      } else {
+        return res.json({ message: "Incorrect Password!" });
+      }
+    });
+  },
+];
