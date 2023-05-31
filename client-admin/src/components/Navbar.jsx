@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 function Navbar() {
+  const user = JSON.parse(localStorage.getItem("admin"));
+
   return (
     <>
       <nav
@@ -14,6 +16,11 @@ function Navbar() {
       >
         <Link to="/">Home</Link>
         <Link to="/post/create">Create New Post</Link>
+        {user ? (
+          <Link to="/logout">Logout</Link>
+        ) : (
+          <Link to="/login">Login</Link>
+        )}
       </nav>
     </>
   );

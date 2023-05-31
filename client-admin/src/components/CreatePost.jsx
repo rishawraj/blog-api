@@ -53,6 +53,7 @@ function CreatePost() {
         <br />
         <label htmlFor="content">Content </label>
         <br />
+
         <textarea
           rows="10"
           cols="100"
@@ -64,6 +65,7 @@ function CreatePost() {
             setContent(e.target.value);
           }}
         />
+
         <br />
         <br />
         <button type="submit">submit</button>

@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
+
+// import { Editor } from "tinymce";
 
 function PostEdit() {
   const { id } = useParams();
@@ -19,7 +21,6 @@ function PostEdit() {
         }
       })
       .then((data) => {
-        console.log(data);
         setTitle(data.title);
         setContent(data.content);
       });
@@ -46,7 +47,6 @@ function PostEdit() {
         }
       })
       .then((data) => {
-        console.log(data);
         navigate("/");
       });
   };
@@ -56,6 +56,11 @@ function PostEdit() {
       <Navbar />
       <div>PostEdit</div>
       <p>{id}</p>
+      <hr />
+      <div>
+        <h3>{title}</h3>
+        <pre>{content}</pre>
+      </div>
 
       <hr />
       <form onSubmit={handleSubmit}>
@@ -72,7 +77,7 @@ function PostEdit() {
         />
         <br />
         <br />
-        {/* <label htmlFor="content">Content </label> */}
+
         <textarea
           rows="10"
           cols="70"
@@ -83,9 +88,16 @@ function PostEdit() {
             setContent(e.target.value);
           }}
         />
+        <hr />
+
+        <hr />
+
         <br />
         <button type="submit">submit</button>
+        <button onClick={() => navigate("/")}>cancel</button>
       </form>
+
+      <hr />
     </>
   );
 }

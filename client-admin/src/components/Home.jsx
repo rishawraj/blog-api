@@ -13,7 +13,6 @@ function Home() {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
         setPosts(data);
       });
   }, [counter]);
@@ -33,7 +32,6 @@ function Home() {
         throw new Error("Request Failed!");
       })
       .then((data) => {
-        console.log(data);
         setCounter(counter + 1);
       });
   }
@@ -53,7 +51,6 @@ function Home() {
         throw new Error("Request Failed!");
       })
       .then((data) => {
-        console.log(data);
         setCounter(counter + 1);
       });
   }
