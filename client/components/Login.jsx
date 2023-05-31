@@ -21,9 +21,10 @@ function Login() {
         return res.json();
       })
       .then((token) => {
-        console.log(token);
-        console.log(token.token);
         localStorage.setItem("jwttoken", token.token);
+        localStorage.setItem("user", JSON.stringify(token.user));
+        // dispatch an event
+        window.dispatchEvent(new Event("storage"));
       });
 
     setUsername("");

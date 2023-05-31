@@ -42,12 +42,20 @@ exports.create_comment = [
     const token =
       req.headers.authorization && req.headers.authorization.split(" ")[1];
 
+    console.log(token);
+
+    if (token === undefined) {
+      return res.json({ message: "Login first!" });
+    }
+
     let obj;
 
     jwt.verify(token, "secret_key_0703", (err, decoded) => {
       if (err) {
         if (err.name === "TokenExpiredError") {
-          return res.status(401).json({ error: "token expired" });
+          return res.json({ error: "token expired!" });
+          // return res.status(401).json({ error: "token expired" });
+
           // return res.json({ error: "token expired" });
           // throw new Error("Token expired");
         }

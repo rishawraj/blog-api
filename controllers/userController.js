@@ -1,7 +1,6 @@
 const { body, validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-
 const User = require("../models/user");
 
 exports.users_get = (req, res) => {
@@ -35,7 +34,7 @@ exports.signup_post = [
     })
     .escape(),
 
-  // proces request
+  // process request
   async (req, res) => {
     const errors = validationResult(req);
 
@@ -75,31 +74,6 @@ exports.get_user = (req, res) => {
     .catch((err) => res.json(err));
 };
 
-// exports.login_post = (req, res) => {
-//   passport.authenticate("local", { session: false }, (err, user) => {
-//     if (err || !user) {
-//       return res.status(401).json({
-//         message: "Incorrect Username or Password",
-//         user,
-//       });
-//     }
-
-//     jwt.sign(
-//       { _id: user.id, username: user.username },
-//       process.env.SECRETKEY,
-//       { expiresIn: "10m" },
-//       (err, token) => {
-//         if (err) return res.status(400).json(err);
-
-//         res.json({
-//           token: token,
-//           user: { _id: user._id, username: user.username },
-//         });
-//       }
-//     );
-//   })(req, res);
-// };
-
 exports.login_post = [
   body("username", "user must be at least 3 characters long")
     .trim()
@@ -136,3 +110,10 @@ exports.login_post = [
     });
   },
 ];
+
+exports.logout = (req, res) => {
+  // localStorage.removeItem("token");
+  // localStorage.removeItem("user");
+
+  res.json({ message: "Logout Successful!" });
+};

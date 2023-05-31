@@ -98,8 +98,8 @@ exports.update_post = (req, res) => {
     });
 };
 
-//todo publish post
-//todo unpublish post
+//* todo publish post
+//* todo unpublish post
 
 //todo like post
 //todo get post likes

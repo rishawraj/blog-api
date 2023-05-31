@@ -1,12 +1,24 @@
 import React, { useState } from "react";
 
 function CommentForm({ id, setCounter }) {
-  const [username, setUsername] = useState(localStorage.getItem("jwttoken"));
   const [content, setContent] = useState("");
   const [notification, setNotification] = useState("");
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
+
+  const handleClick = () => {
+    setNotification("");
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    const token = localStorage.getItem("jwttoken");
+
+    console.log(token);
+
+    if (localStorage.getItem("jwttoken") === null) {
+      setNotification("Please Login First");
+      return;
+    }
 
     fetch(`http://localhost:8080/api/comments/${id}`, {
       method: "POST",
@@ -16,7 +28,7 @@ function CommentForm({ id, setCounter }) {
 
       headers: {
         "Content-Type": "application/json; charset=UTF-8",
-        Authorization: `Bearer ${username}`,
+        Authorization: `Bearer ${token}`,
       },
     })
       .then((res) => {
@@ -41,8 +53,28 @@ function CommentForm({ id, setCounter }) {
         padding: "10px",
       }}
     >
+      {notification && (
+        <div
+          style={{
+            backgroundColor: "lightpink",
+            display: "flex",
+            justifyContent: "space-between",
+            marginBlock: "10px",
+            padding: "5px",
+          }}
+        >
+          {notification}
+          <button onClick={handleClick}>x</button>
+        </div>
+      )}
+
       <form onSubmit={handleSubmit}>
-        <br />
+        {user && (
+          <p>
+            Username:{" "}
+            <span style={{ fontWeight: "bold" }}>{user.username}</span>
+          </p>
+        )}
         <label htmlFor="message">Message: </label>
         <input
           type="text"

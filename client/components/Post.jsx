@@ -66,7 +66,7 @@ function Post() {
           <p>
             <i>{formatDate(postData.timestamp)}</i>
           </p>
-          <p>{postData.content}</p>
+          <pre>{postData.content}</pre>
         </div>
         <hr />
         <h3>Comments</h3>

@@ -24,11 +24,9 @@ mongoose
   })
   .then(() => {
     console.log("Connected to MongoDB");
-    // Start your Express server or perform any other
-    // operations after successful connection
   })
   .catch((error) => {
-    console.error("Error connecting to MongoDB:", error);
+    console.error("Error connecting to MongoDB: ", error);
   });
 
 var app = express();
