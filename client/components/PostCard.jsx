@@ -30,7 +30,6 @@ function PostCard({ post }) {
       </p>
 
       <p>{post.author}</p>
-      <p>{post.content}</p>
       <Link to={`/post/${post._id}`}> Go to Post</Link>
     </div>
   );

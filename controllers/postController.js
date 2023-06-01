@@ -3,22 +3,32 @@ const Post = require("../models/post");
 
 //* todo get all posts
 exports.posts = (req, res) => {
-  Post.find().then((posts) => {
-    return res.json(posts);
-  });
+  Post.find()
+    .sort({ timestamp: -1 })
+    .then((posts) => {
+      return res.json(posts);
+    })
+    .catch((err) => {
+      console.error("Error retrieving all posts", err);
+      res.status(500).json({ error: "Internal Server Error" });
+    });
 };
 
 // get public posts
 exports.public_post = (req, res) => {
-  Post.find({ published: true }).then((posts) => {
-    return res.json(posts);
-  });
+  Post.find({ published: true })
+    .then((posts) => {
+      return res.json(posts);
+    })
+    .catch((err) => {
+      console.error("Error retrieving public posts", err);
+      res.status(500).json({ error: "Internal Server Error" });
+    });
 };
 
 //* todo create post
 exports.create_post = [
   body("title", "title is required").trim().isLength({ min: 1 }).escape(),
-  body("content", "content is required").trim().isLength({ min: 1 }).escape(),
 
   (req, res) => {
     const errors = validationResult(req);

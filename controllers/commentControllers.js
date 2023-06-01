@@ -100,4 +100,15 @@ exports.delete_comment = (req, res) => {
 
 exports.edit_comment = [];
 
+//  delete all comments of a post
+exports.delete_all = (req, res) => {
+  Comment.deleteMany({ post: req.params.id })
+    .then((result) => {
+      console.log(result);
+    })
+    .catch((err) => {
+      console.error("Error deleting posts", err);
+    });
+};
+
 // exports.get_comment = (req, res) => {};

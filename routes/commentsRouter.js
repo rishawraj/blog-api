@@ -9,6 +9,8 @@ commentsRouter.get("/:id", commentController.comments);
 // create comment
 commentsRouter.post("/:id", commentController.create_comment);
 
+commentsRouter.delete("/:id", commentController.delete_all);
+
 // single comment
 // commentsRouter.get("/:id", commentController.get_comment);
 

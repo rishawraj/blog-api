@@ -24,6 +24,7 @@ function Post() {
         }
       })
       .then((data) => {
+        console.log(data);
         setPostData(data);
       });
   }, []);
@@ -66,7 +67,7 @@ function Post() {
           <p>
             <i>{formatDate(postData.timestamp)}</i>
           </p>
-          <pre>{postData.content}</pre>
+          <div dangerouslySetInnerHTML={{ __html: postData.content }} />
         </div>
         <hr />
         <h3>Comments</h3>

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
+import { Editor } from "@tinymce/tinymce-react";
 
 // import { Editor } from "tinymce";
 
@@ -10,6 +11,23 @@ function PostEdit() {
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+
+  const [comments, setComments] = useState([]);
+  const [counter, setCounter] = useState(0);
+
+  useEffect(() => {
+    fetch(`http://localhost:8080/api/comments/${id}`)
+      .then((res) => {
+        console.log(res);
+        if (res.ok) {
+          return res.json();
+        }
+      })
+      .then((data) => {
+        console.log(data);
+        setComments(data);
+      });
+  }, [counter]);
 
   useEffect(() => {
     fetch(`http://localhost:8080/api/posts/${id}`)
@@ -47,23 +65,73 @@ function PostEdit() {
         }
       })
       .then((data) => {
+        console.log(data);
         navigate("/");
       });
+  };
+
+  const handleClick = (id) => {
+    console.log(id);
+    fetch(`http://localhost:8080/api/comments/${id}/delete`, {
+      method: "DELETE",
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          console.log(res.status + " " + res.text);
+        }
+      })
+      .then((data) => {
+        console.log(data);
+        setCounter(counter + 1);
+      });
+  };
+
+  const handleDeletePost = () => {
+    console.log(id);
+
+    fetch(`http://localhost:8080/api/posts/${id}/delete`, { method: "DELETE" })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          console.log(res.status + " " + res.text);
+        }
+      })
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    fetch(`http://localhost:8080/api/comments/${id}`, { method: "DELETE" })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          console.log(res.status + " " + res.text);
+        }
+      })
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    navigate("/");
   };
 
   return (
     <>
       <Navbar />
-      <div>PostEdit</div>
-      <p>{id}</p>
-      <hr />
-      <div>
-        <h3>{title}</h3>
-        <pre>{content}</pre>
-      </div>
 
-      <hr />
+      <button onClick={handleDeletePost}>Delete Post</button>
+
       <form onSubmit={handleSubmit}>
+        <br />
         <label htmlFor="title">Title </label>
         <br />
         <br />
@@ -78,17 +146,18 @@ function PostEdit() {
         <br />
         <br />
 
-        <textarea
-          rows="10"
-          cols="70"
-          type="textarea"
-          name="content"
-          value={content}
-          onChange={(e) => {
-            setContent(e.target.value);
-          }}
-        />
         <hr />
+
+        <Editor
+          apiKey="gs3fqut22bhrqy33bcubhbf4ooe6mvg88ulbx19nciffywb4"
+          textareaName="content"
+          value={content}
+          onEditorChange={(newText) => {
+            console.log(content);
+            setContent(newText);
+          }}
+          init={{ height: 500, menubar: false }}
+        />
 
         <hr />
 
@@ -98,6 +167,17 @@ function PostEdit() {
       </form>
 
       <hr />
+      <h1>Comments</h1>
+
+      {comments.map((item) => (
+        <div key={item._id} style={{ backgroundColor: "greenyellow" }}>
+          <p>Username: {item.username}</p>
+          <p>Content: {item.content}</p>
+          <p>Timestamp: {item.timestamp}</p>
+          <p>Post: {item.post}</p>
+          <button onClick={() => handleClick(item._id)}>delete</button>
+        </div>
+      ))}
     </>
   );
 }

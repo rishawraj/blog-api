@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Navbar from "./Navbar";
 import { useNavigate } from "react-router-dom";
+import { Editor } from "@tinymce/tinymce-react";
 
 function CreatePost() {
   const navigate = useNavigate();
@@ -10,6 +11,11 @@ function CreatePost() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (content === "") {
+      alert("content cannot be empty!");
+      return;
+    }
 
     fetch("http://localhost:8080/api/posts/create", {
       method: "POST",
@@ -30,6 +36,7 @@ function CreatePost() {
       })
       .then((data) => {
         console.log(data);
+
         setTitle("");
         setContent("");
         navigate("/");
@@ -46,28 +53,20 @@ function CreatePost() {
           type="text"
           name="title"
           value={title}
-          required
           onChange={(e) => setTitle(e.target.value)}
         />
         <br />
-        <br />
-        <label htmlFor="content">Content </label>
-        <br />
 
-        <textarea
-          rows="10"
-          cols="100"
-          type="text"
-          name="content"
+        <Editor
+          apiKey="gs3fqut22bhrqy33bcubhbf4ooe6mvg88ulbx19nciffywb4"
+          textareaName="content"
           value={content}
-          required
-          onChange={(e) => {
-            setContent(e.target.value);
+          onEditorChange={(newText) => {
+            console.log(content);
+            setContent(newText);
           }}
+          init={{ height: 500, menubar: false }}
         />
-
-        <br />
-        <br />
         <button type="submit">submit</button>
       </form>
     </>
