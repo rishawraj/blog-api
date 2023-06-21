@@ -1,13 +1,9 @@
 import React, { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
 
 function CommentForm({ id, setCounter }) {
   const [content, setContent] = useState("");
-  const [notification, setNotification] = useState("");
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
-
-  const handleClick = () => {
-    setNotification("");
-  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -16,7 +12,7 @@ function CommentForm({ id, setCounter }) {
     console.log(token);
 
     if (localStorage.getItem("jwttoken") === null) {
-      setNotification("Please Login First");
+      toast.error("Please Login First");
       return;
     }
 
@@ -53,21 +49,6 @@ function CommentForm({ id, setCounter }) {
         padding: "10px",
       }}
     >
-      {notification && (
-        <div
-          style={{
-            backgroundColor: "lightpink",
-            display: "flex",
-            justifyContent: "space-between",
-            marginBlock: "10px",
-            padding: "5px",
-          }}
-        >
-          {notification}
-          <button onClick={handleClick}>x</button>
-        </div>
-      )}
-
       <form onSubmit={handleSubmit}>
         {user && (
           <p>
@@ -86,6 +67,7 @@ function CommentForm({ id, setCounter }) {
         <br />
         <button type="submit">comment</button>
       </form>
+      <ToastContainer />
     </div>
   );
 }

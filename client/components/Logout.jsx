@@ -25,6 +25,7 @@ function Logout() {
 
     localStorage.removeItem("jwttoken");
     localStorage.removeItem("user");
+    sessionStorage.setItem("successMessage", "Logout Successfull");
     navigate("/");
   };
 

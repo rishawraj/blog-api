@@ -4,13 +4,38 @@ import { Link } from "react-router-dom";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import PostCard from "./PostCard";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Home() {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
+    const loginMessage = sessionStorage.getItem("loginMessage");
+    const logoutMessage = sessionStorage.getItem("successMessage");
+    const signUpMessage = sessionStorage.getItem("signUpMessage");
+
+    if (loginMessage) {
+      toast.success(loginMessage);
+      sessionStorage.removeItem("loginMessage");
+    }
+
+    if (logoutMessage) {
+      toast.info(logoutMessage);
+      sessionStorage.removeItem("successMessage");
+    }
+
+    if (signUpMessage) {
+      toast.success(signUpMessage);
+      sessionStorage.removeItem("signUpMessage");
+    }
+  }, []);
+
+  useEffect(() => {
     fetch("/api/posts/public")
       .then((res) => {
+        console.log(res);
+
         if (res.ok) {
           return res.json();
         } else {
@@ -27,12 +52,14 @@ function Home() {
   return (
     <div style={{ width: "70%", marginInline: "auto" }}>
       <Navbar />
+      <ToastContainer position="bottom-right" pauseOnFocusLoss={false} />
 
       <div>
         <h1>Posts</h1>
-        {posts.map((post, i) => {
-          return <PostCard key={i} post={post} />;
-        })}
+        {posts &&
+          posts.map((post, i) => {
+            return <PostCard key={i} post={post} />;
+          })}
       </div>
 
       <Footer />

@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import Navbar from "./Navbar";
 import { useNavigate, Link } from "react-router-dom";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -9,6 +12,7 @@ function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // toast.dark("hi");
 
     fetch("/api/users/login", {
       method: "POST",
@@ -20,16 +24,22 @@ function Login() {
       .then((res) => {
         return res.json();
       })
-      .then((token) => {
-        localStorage.setItem("jwttoken", token.token);
-        localStorage.setItem("user", JSON.stringify(token.user));
-        // dispatch an event
-        window.dispatchEvent(new Event("storage"));
-      });
+      .then((data) => {
+        console.log(data);
 
-    setUsername("");
-    setPassword("");
-    navigate("/");
+        if (data.token) {
+          localStorage.setItem("jwttoken", data.token);
+          localStorage.setItem("user", JSON.stringify(data.user));
+          // dispatch an event
+          window.dispatchEvent(new Event("storage"));
+          setUsername("");
+          setPassword("");
+          sessionStorage.setItem("loginMessage", "Successfully Logged In!");
+          navigate("/");
+        } else {
+          toast.error(data.message || "Invalid username or password");
+        }
+      });
   };
 
   return (
@@ -40,12 +50,14 @@ function Login() {
         <br />
         <hr />
         <h1>Login</h1>
+        <ToastContainer />
         <form onSubmit={handleSubmit}>
           <label htmlFor="username">Username: </label>
           <input
             type="text"
             name="username"
             value={username}
+            required
             onChange={(e) => {
               setUsername(e.target.value);
             }}
@@ -56,6 +68,7 @@ function Login() {
           <input
             type="text"
             name="password"
+            required
             value={password}
             onChange={(e) => {
               setPassword(e.target.value);

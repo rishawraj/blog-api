@@ -17,7 +17,7 @@ exports.signup_post = [
     .isLength({ min: 3 })
     .escape(),
 
-  body("password", "Password must at least 6 characters long.")
+  body("password", "Password must at least 3 characters long.")
     .trim()
     .isLength({ min: 3 })
     .escape(),
@@ -105,7 +105,7 @@ exports.login_post = [
 
         return res.json({ token: token, user: user });
       } else {
-        return res.json({ message: "Incorrect Password!" });
+        return res.json({ message: "Incorrect Password or Username" });
       }
     });
   },

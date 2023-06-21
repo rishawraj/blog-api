@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import Navbar from "./Navbar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function SignUp() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [message, setMessage] = useState("");
-  const [messageStatus, setMessageStatus] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -32,11 +34,19 @@ function SignUp() {
       })
       .then((user) => {
         console.log(user);
-        setUsername("");
-        setPassword("");
-        setConfirmPassword("");
-        setMessage(user.message);
-        setMessageStatus(!messageStatus);
+
+        if (user.errors) {
+          user.errors.forEach((error) => {
+            toast.error(error.msg);
+          });
+        } else {
+          setUsername("");
+          setPassword("");
+          setConfirmPassword("");
+
+          sessionStorage.setItem("signUpMessage", "User Created Successfully!");
+          navigate("/");
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -56,26 +66,6 @@ function SignUp() {
         <div>SignUp</div>
 
         <Link to="/login">Login</Link>
-        {messageStatus && (
-          <div
-            style={{
-              backgroundColor: "lightcoral",
-              display: "flex",
-              justifyContent: "space-between",
-              padding: "5px",
-            }}
-          >
-            <div>{message}</div>
-
-            <button
-              onClick={() => {
-                setMessageStatus(!messageStatus);
-              }}
-            >
-              x
-            </button>
-          </div>
-        )}
 
         <form onSubmit={handleSubmit}>
           <br />
@@ -83,6 +73,7 @@ function SignUp() {
           <input
             type="text"
             name="username"
+            required
             value={username}
             onChange={(e) => {
               setUsername(e.target.value);
@@ -94,6 +85,7 @@ function SignUp() {
           <input
             type="text"
             name="password"
+            required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
@@ -103,6 +95,7 @@ function SignUp() {
           <input
             type="text"
             name="confirmPassword"
+            required
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
@@ -112,6 +105,7 @@ function SignUp() {
           <button type="submit">submit</button>
         </form>
       </div>
+      <ToastContainer />
     </>
   );
 }
