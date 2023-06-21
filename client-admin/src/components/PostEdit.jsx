@@ -16,7 +16,7 @@ function PostEdit() {
   const [counter, setCounter] = useState(0);
 
   useEffect(() => {
-    fetch(`http://localhost:8080/api/comments/${id}`)
+    fetch(`/api/comments/${id}`)
       .then((res) => {
         console.log(res);
         if (res.ok) {
@@ -30,7 +30,7 @@ function PostEdit() {
   }, [counter]);
 
   useEffect(() => {
-    fetch(`http://localhost:8080/api/posts/${id}`)
+    fetch(`/api/posts/${id}`)
       .then((res) => {
         if (res.ok) {
           return res.json();
@@ -47,7 +47,7 @@ function PostEdit() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch(`http://localhost:8080/api/posts/${id}/edit`, {
+    fetch(`/api/posts/${id}/edit`, {
       method: "PUT",
       body: JSON.stringify({
         title: title,
@@ -72,7 +72,7 @@ function PostEdit() {
 
   const handleClick = (id) => {
     console.log(id);
-    fetch(`http://localhost:8080/api/comments/${id}/delete`, {
+    fetch(`/api/comments/${id}/delete`, {
       method: "DELETE",
     })
       .then((res) => {
@@ -91,7 +91,7 @@ function PostEdit() {
   const handleDeletePost = () => {
     console.log(id);
 
-    fetch(`http://localhost:8080/api/posts/${id}/delete`, { method: "DELETE" })
+    fetch(`/api/posts/${id}/delete`, { method: "DELETE" })
       .then((res) => {
         if (res.ok) {
           return res.json();
@@ -106,7 +106,7 @@ function PostEdit() {
         console.log(err);
       });
 
-    fetch(`http://localhost:8080/api/comments/${id}`, { method: "DELETE" })
+    fetch(`/api/comments/${id}`, { method: "DELETE" })
       .then((res) => {
         if (res.ok) {
           return res.json();

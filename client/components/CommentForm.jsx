@@ -20,7 +20,7 @@ function CommentForm({ id, setCounter }) {
       return;
     }
 
-    fetch(`http://localhost:8080/api/comments/${id}`, {
+    fetch(`/api/comments/${id}`, {
       method: "POST",
       body: JSON.stringify({
         content: content,

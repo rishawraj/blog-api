@@ -6,7 +6,7 @@ function Logout() {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    fetch("http://localhost:8080/api/users/logout", {
+    fetch("/api/users/logout", {
       method: "POST",
       headers: {
         "Content-Type": "application/json; charset=UTF-8",

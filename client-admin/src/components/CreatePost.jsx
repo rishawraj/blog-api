@@ -17,7 +17,7 @@ function CreatePost() {
       return;
     }
 
-    fetch("http://localhost:8080/api/posts/create", {
+    fetch("/api/posts/create", {
       method: "POST",
       body: JSON.stringify({
         title: title,

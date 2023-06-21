@@ -12,7 +12,7 @@ function SignUp() {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    fetch("http://localhost:8080/api/users/signup", {
+    fetch("/api/users/signup", {
       method: "POST",
       body: JSON.stringify({
         username: username,

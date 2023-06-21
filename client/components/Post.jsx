@@ -15,7 +15,7 @@ function Post() {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:8080/api/posts/${id}`)
+    fetch(`/api/posts/${id}`)
       .then((res) => {
         if (res.ok) {
           return res.json();
@@ -30,7 +30,7 @@ function Post() {
   }, []);
 
   useEffect(() => {
-    fetch(`http://localhost:8080/api/comments/${id}`)
+    fetch(`/api/comments/${id}`)
       .then((res) => {
         if (res.ok) {
           return res.json();

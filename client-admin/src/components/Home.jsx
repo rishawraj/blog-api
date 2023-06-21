@@ -8,7 +8,7 @@ function Home() {
   const [counter, setCounter] = useState(0);
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/posts")
+    fetch("/api/posts")
       .then((response) => {
         return response.json();
       })
@@ -18,7 +18,7 @@ function Home() {
   }, [counter]);
 
   function handleSubmit(id) {
-    fetch(`http://localhost:8080/api/posts/${id}/edit`, {
+    fetch(`/api/posts/${id}/edit`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -37,7 +37,7 @@ function Home() {
   }
 
   function handleSubmit2(id) {
-    fetch(`http://localhost:8080/api/posts/${id}/edit`, {
+    fetch(`/api/posts/${id}/edit`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
