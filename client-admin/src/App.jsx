@@ -6,6 +6,7 @@ import CreatePost from "./components/CreatePost";
 import Login from "./components/Login";
 import PrivateRoute from "./components/PrivateRoute";
 import Logout from "./components/Logout";
+import "./App.css";
 
 function App() {
   return (

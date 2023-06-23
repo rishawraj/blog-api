@@ -2,13 +2,54 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Navbar from "./Navbar";
 import CommentForm from "./CommentForm";
+import { toast } from "react-toastify";
 
 function Post() {
   const { id } = useParams();
-
   const [postData, setPostData] = useState({});
   const [comments, setComments] = useState([]);
   const [counter, setCounter] = useState(0);
+  const [likeCounter, setLikeCounter] = useState(0);
+
+  const handleLike = () => {
+    console.log("like");
+
+    // postid
+    console.log(id);
+
+    // // userid
+    // const user = JSON.parse(localStorage.getItem("user"));
+    // const userId = user._id;
+
+    const token = localStorage.getItem("jwttoken");
+
+    if (!token) {
+      toast.error("Please Login before liking");
+      return;
+    }
+
+    fetch(`/api/posts/${id}/like`, {
+      method: "PUT",
+      body: JSON.stringify({
+        postId: id,
+        // userId: userId,
+      }),
+      headers: {
+        "Content-Type": "application/json; charset=UTF-8",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        console.log(res);
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        toast.success(data.message);
+      });
+
+    setLikeCounter(likeCounter + 1);
+  };
 
   const incrementCounter = () => {
     setCounter(counter + 1);
@@ -26,8 +67,9 @@ function Post() {
       .then((data) => {
         console.log(data);
         setPostData(data);
+        setLikeCounter(data.likes.length);
       });
-  }, []);
+  }, [likeCounter]);
 
   useEffect(() => {
     fetch(`/api/comments/${id}`)
@@ -69,6 +111,18 @@ function Post() {
           </p>
           <div dangerouslySetInnerHTML={{ __html: postData.content }} />
         </div>
+
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "15px",
+          }}
+        >
+          <p>Likes {likeCounter}</p>
+          <button onClick={handleLike}>like</button>
+        </div>
+
         <hr />
         <h3>Comments</h3>
 

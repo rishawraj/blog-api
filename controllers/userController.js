@@ -2,6 +2,8 @@ const { body, validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const User = require("../models/user");
+const dotenv = require("dotenv");
+dotenv.config();
 
 exports.users_get = (req, res) => {
   User.find()
@@ -96,12 +98,16 @@ exports.login_post = [
 
     bcrypt.compare(req.body.password, user.password, (err, result) => {
       if (result) {
-        const payload = { username: user.username, password: user.password };
-        const token = jwt.sign(payload, "secret_key_0703", {
-          expiresIn: "1h",
+        const payload = {
+          id: user._id,
+          username: user.username,
+          password: user.password,
+        };
+        const token = jwt.sign(payload, process.env.JWTSECRET, {
+          expiresIn: "1d",
         });
-        console.log(token);
-        console.log(user);
+        // console.log(token);
+        // console.log(user);
 
         return res.json({ token: token, user: user });
       } else {

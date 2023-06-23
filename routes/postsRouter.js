@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const postController = require("../controllers/postController");
+const verifyToken = require("../middlewares/verifyToken");
 
 // app.use("/api/posts", postsRouter);
 
@@ -28,10 +29,9 @@ router.put("/:id/edit", postController.update_post);
 // // POST unpublish post
 // router.post("/:id/unpublish", verifyToken, postController.unpublish);
 
-// // get post likes
-// router.get("/:id/likes", postController.likes);
+// get post likes
 
-// // like post
-// router.put("/:id/like", verifyToken, postController.like);
+// like post
+router.put("/:id/like", verifyToken, postController.like);
 
 module.exports = router;

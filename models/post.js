@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const PostSchema = new Schema({
-  title: { type: String, maxLength: 50, required: true },
+  title: { type: String, maxLength: 100, required: true },
   content: { type: String, required: true },
   author: { type: String, required: true },
   published: { type: Boolean },

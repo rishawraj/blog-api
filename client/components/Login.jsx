@@ -4,6 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Footer from "./Footer";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -79,6 +80,7 @@ function Login() {
           <button type="submit">submit</button>
         </form>
       </div>
+      <Footer />
     </>
   );
 }

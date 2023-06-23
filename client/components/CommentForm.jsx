@@ -35,7 +35,7 @@ function CommentForm({ id, setCounter }) {
         }
       })
       .then((json) => {
-        console.log(json);
+        toast.error(json.error);
         setContent("");
         setCounter();
       });

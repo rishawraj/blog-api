@@ -12,25 +12,20 @@ const formatDate = (dateString) => {
     month: "short",
     year: "2-digit",
   };
+
   return date.toLocaleString("en-US", options);
 };
 
 function PostCard({ post }) {
   return (
-    <div
-      style={{
-        backgroundColor: "lightseagreen",
-        padding: "20px",
-        margin: "20px",
-      }}
-    >
+    <div className="post-card">
       <h1>{post.title}</h1>
+
       <p>
         <i>{formatDate(post.timestamp)}</i>
       </p>
 
       <p>{post.author}</p>
-      <Link to={`/post/${post._id}`}> Go to Post</Link>
     </div>
   );
 }

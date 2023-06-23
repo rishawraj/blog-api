@@ -6,6 +6,7 @@ import Navbar from "./Navbar";
 function Home() {
   const [posts, setPosts] = useState([]);
   const [counter, setCounter] = useState(0);
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
     fetch("/api/posts")
@@ -16,6 +17,18 @@ function Home() {
         setPosts(data);
       });
   }, [counter]);
+
+  useEffect(() => {
+    fetch("/api/users")
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+
+        setUsers(data);
+      });
+  }, []);
 
   function handleSubmit(id) {
     fetch(`/api/posts/${id}/edit`, {
@@ -87,15 +100,41 @@ function Home() {
               </div>
 
               <div>
-                <button onClick={() => handleSubmit(post._id)}>publish</button>
-                <button onClick={() => handleSubmit2(post._id)}>
-                  unpublish
-                </button>
+                {post.published ? (
+                  <button
+                    style={{ backgroundColor: "red" }}
+                    onClick={() => handleSubmit2(post._id)}
+                  >
+                    unpublish
+                  </button>
+                ) : (
+                  <button
+                    style={{ backgroundColor: "green" }}
+                    onClick={() => handleSubmit(post._id)}
+                  >
+                    publish
+                  </button>
+                )}
               </div>
             </div>
           );
         })}
       </div>
+
+      {/* list users */}
+      <h1>Users</h1>
+      <p>Number of Users: {users.length}</p>
+
+      {users.map((user, i) => {
+        return (
+          <div key={i} style={{ backgroundColor: "lightcoral" }}>
+            <p>ID: {user._id}</p>
+            <p>
+              Name: <b>{user.username}</b>
+            </p>
+          </div>
+        );
+      })}
     </>
   );
 }

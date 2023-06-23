@@ -43,7 +43,7 @@ exports.create_post = [
     const newPost = new Post({
       title,
       content,
-      author: "raj",
+      author: "Rishaw Raj",
       published: false,
       timestamp: Date.now(),
       imgUrl: imgUrl,
@@ -108,8 +108,34 @@ exports.update_post = (req, res) => {
     });
 };
 
-//* todo publish post
-//* todo unpublish post
-
 //todo like post
-//todo get post likes
+exports.like = (req, res) => {
+  const userId = req.user.id;
+  const postId = req.body.postId;
+
+  Post.findById(postId).then((post) => {
+    if (!post) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+
+    // Check if the user has already liked the post
+    if (post.likes.includes(userId)) {
+      // Remove the user ID from the likes array
+      post.likes = post.likes.filter((id) => id !== userId);
+
+      return post.save();
+    }
+
+    // Add the user ID to the likes array
+    post.likes.push(userId);
+
+    try {
+      post.save();
+      return res.status(200).json({ message: "Post liked successfully" });
+    } catch (error) {
+      return res
+        .status(500)
+        .json({ message: "Failed to like the post", error });
+    }
+  });
+};

@@ -50,15 +50,31 @@ function Home() {
   }, []);
 
   return (
-    <div style={{ width: "70%", marginInline: "auto" }}>
+    <div
+      style={{
+        width: "70%",
+        marginInline: "auto",
+        display: "flex",
+        height: "100vh",
+        flexDirection: "column",
+        justifyContent: "space-between",
+      }}
+    >
       <Navbar />
       <ToastContainer position="bottom-right" pauseOnFocusLoss={false} />
 
-      <div>
+      <div style={{ flex: 1 }}>
         <h1>Posts</h1>
+
         {posts &&
           posts.map((post, i) => {
-            return <PostCard key={i} post={post} />;
+            return (
+              <div key={i}>
+                <Link to={`/post/${post._id}`}>
+                  <PostCard post={post} />
+                </Link>
+              </div>
+            );
           })}
       </div>
 
