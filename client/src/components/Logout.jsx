@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 
 function Logout() {
   const navigate = useNavigate();
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
 
   const handleClick = () => {
     fetch("/api/users/logout", {
@@ -33,7 +34,14 @@ function Logout() {
     <>
       <Navbar />
       <h1>Logout</h1>
-      <button onClick={handleClick}>logout</button>
+      {user && (
+        <p style={{ color: "cadetblue", fontWeight: "bold" }}>
+          Username: {user.username}
+          <br />
+          <br />
+          <button onClick={handleClick}>logout</button>
+        </p>
+      )}
     </>
   );
 }

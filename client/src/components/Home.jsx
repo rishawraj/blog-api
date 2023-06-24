@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import styles from "../styles/Home.module.css";
 
-import Navbar from "./Navbar";
 import Footer from "./Footer";
 import PostCard from "./PostCard";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import HeroTop from "./HeroTop";
 
 function Home() {
   const [posts, setPosts] = useState([]);
@@ -50,20 +51,12 @@ function Home() {
   }, []);
 
   return (
-    <div
-      style={{
-        width: "70%",
-        marginInline: "auto",
-        display: "flex",
-        height: "100vh",
-        flexDirection: "column",
-        justifyContent: "space-between",
-      }}
-    >
-      <Navbar />
+    <div className={styles.container}>
+      <HeroTop />
+
       <ToastContainer position="bottom-right" pauseOnFocusLoss={false} />
 
-      <div style={{ flex: 1 }}>
+      <div className={styles.postContainer}>
         <h1>Posts</h1>
 
         {posts &&

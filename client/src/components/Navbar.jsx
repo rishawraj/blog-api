@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import styles from "../styles/Navbar.module.css";
 
 function Navbar() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
@@ -18,25 +19,17 @@ function Navbar() {
   }, []);
 
   return (
-    <nav
-      style={{
-        backgroundColor: "lightcoral",
-        padding: "10px",
-        display: "flex",
-        justifyContent: "space-around",
-        alignContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Link to={"/"}>Home</Link>
-      <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
-        {user && (
-          <p style={{ color: "cadetblue", fontWeight: "bold" }}>
-            {user.username}
-          </p>
-        )}
-        {user && <Link to={"/logout"}>Logout</Link>}
-        {!user && <Link to={"/login"}>Login</Link>}
+    <nav className={styles.navbar}>
+      <div className="logo">
+        <Link className={styles.link} to={"/"}>
+          BLOGSTATIC
+        </Link>
+      </div>
+
+      <div className="nav-links">
+        <Link className={styles.button} to={"/login"}>
+          Login
+        </Link>
       </div>
     </nav>
   );

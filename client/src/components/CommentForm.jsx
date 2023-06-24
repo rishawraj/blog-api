@@ -9,7 +9,7 @@ function CommentForm({ id, setCounter }) {
     event.preventDefault();
     const token = localStorage.getItem("jwttoken");
 
-    console.log(token);
+    // console.log(token);
 
     if (localStorage.getItem("jwttoken") === null) {
       toast.error("Please Login First");

@@ -18,7 +18,9 @@ const formatDate = (dateString) => {
 
 function PostCard({ post }) {
   return (
-    <div className="post-card">
+    <div style={{ backgroundColor: "lightsteelblue" }} className="post-card">
+      <img style={{ width: "200px" }} src="./post-image.jpg" alt="post-image" />
+
       <h1>{post.title}</h1>
 
       <p>
