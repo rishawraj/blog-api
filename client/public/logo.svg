@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://web.resource.org/cc/" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:svg="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:ns1="http://sozi.baierouge.fr" id="svg2" viewBox="0 0 48 48" version="1.0" inkscape:version="0.91 r13725">
+  <defs id="defs4">
+    <radialGradient id="radialGradient2460" gradientUnits="userSpaceOnUse" cy="52" cx="-15" gradientTransform="matrix(1 0 0 .24194 0 39.419)" r="15.5">
+      <stop id="stop3391" style="stop-color:#000000" offset="0"/>
+      <stop id="stop3393" style="stop-color:#000000;stop-opacity:0" offset="1"/>
+    </radialGradient>
+  </defs>
+  <g id="layer1">
+    <path id="path3171" style="fill:#000000" d="m16 4a3.5 4 0 1 1 -7 0 3.5 4 0 1 1 7 0z" transform="matrix(4.2676 0 0 3.7341 -21.876 13.978)"/>
+    <path id="path3387" style="opacity:.631;fill:url(#radialGradient2460)" d="m0.5 52a15.5 3.75 0 1 1 -31 0 15.5 3.75 0 1 1 31 0z" transform="matrix(1.1613 0 0 1.5 41.414 -36.16)"/>
+    <path id="path3182" style="fill:#ffffff" d="m16 4a3.5 4 0 1 1 -7 0 3.5 4 0 1 1 7 0z" transform="matrix(4.2676 0 0 3.7341 -29.344 .53519)"/>
+    <path id="path3185" style="fill:#000000" d="m16 4a3.5 4 0 1 1 -7 0 3.5 4 0 1 1 7 0z" transform="matrix(3.8408 0 0 3.3607 -24.01 2.0288)"/>
+    <path id="path3215" style="fill:#ffffff" d="m16 4a3.5 4 0 1 1 -7 0 3.5 4 0 1 1 7 0z" transform="matrix(3.4286 0 0 3 -18.857 3.4716)"/>
+    <path id="path3221" style="fill:#ffffff" d="m16 4a3.5 4 0 1 1 -7 0 3.5 4 0 1 1 7 0z" transform="matrix(3.8408 0 0 3.3607 -16.542 15.472)"/>
+    <path id="path3223" style="fill:#000000" d="m16 4a3.5 4 0 1 1 -7 0 3.5 4 0 1 1 7 0z" transform="matrix(3.4286 0 0 3 -11.389 16.914)"/>
+  </g>
+  <metadata>
+    <rdf:RDF>
+      <cc:Work>
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+        <cc:license rdf:resource="http://creativecommons.org/licenses/publicdomain/"/>
+        <dc:publisher>
+          <cc:Agent rdf:about="http://openclipart.org/">
+            <dc:title>Openclipart</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:title>tango_bw</dc:title>
+        <dc:date>2009-07-17T19:29:28</dc:date>
+        <dc:description/>
+        <dc:source>https://openclipart.org/detail/27216/tango_bw-by-maxim2-27216</dc:source>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>maxim2</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>icon</rdf:li>
+            <rdf:li>tango</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+      </cc:Work>
+      <cc:License rdf:about="http://creativecommons.org/licenses/publicdomain/">
+        <cc:permits rdf:resource="http://creativecommons.org/ns#Reproduction"/>
+        <cc:permits rdf:resource="http://creativecommons.org/ns#Distribution"/>
+        <cc:permits rdf:resource="http://creativecommons.org/ns#DerivativeWorks"/>
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+</svg>

@@ -54,11 +54,7 @@ function Home() {
     <div className={styles.container}>
       <HeroTop />
 
-      <ToastContainer position="bottom-right" pauseOnFocusLoss={false} />
-
       <div className={styles.postContainer}>
-        <h1>Posts</h1>
-
         {posts &&
           posts.map((post, i) => {
             return (
@@ -72,6 +68,7 @@ function Home() {
       </div>
 
       <Footer />
+      <ToastContainer position="bottom-right" pauseOnFocusLoss={false} />
     </div>
   );
 }

@@ -11,7 +11,7 @@ const HeroTop = () => {
           <p id={styles.simple}> Simplicity</p>
         </div>
         <div className={styles.logo}>
-          <h3>logo</h3>
+          <img style={{ width: "150px" }} src="./circle.svg" />
         </div>
       </div>
     </>

@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import Navbar from "./Navbar";
 import CommentForm from "./CommentForm";
 import { toast } from "react-toastify";
+import styles from "../styles/Post.module.css";
 
 function Post() {
   const { id } = useParams();

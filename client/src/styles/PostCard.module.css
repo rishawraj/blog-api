@@ -1,0 +1,44 @@
+.postCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-items: center;
+  color: white;
+  width: 300px;
+}
+
+.title {
+  margin-top: 10px;
+  color: whitesmoke;
+  margin-bottom: 10px;
+  font-size: 20px;
+  font-family: "Mono Space", monospace;
+}
+
+.date {
+  color: #143446;
+}
+
+.imageContainer img {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+.cardText {
+  color: black;
+}
+
+.content {
+  color: #b9d6f2;
+  font-family: "Mono Space", monospace;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}

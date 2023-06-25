@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import styles from "../styles/PostCard.module.css";
 
 const formatDate = (dateString) => {
   const date = new Date(dateString);
@@ -16,18 +16,32 @@ const formatDate = (dateString) => {
   return date.toLocaleString("en-US", options);
 };
 
+const truncateStrign = (str, maxLength) => {
+  if (str.length <= maxLength) {
+    return str;
+  }
+  return str.slice(0, maxLength) + "...";
+};
+
 function PostCard({ post }) {
   return (
-    <div style={{ backgroundColor: "lightsteelblue" }} className="post-card">
-      <img style={{ width: "200px" }} src="./post-image.jpg" alt="post-image" />
-
-      <h1>{post.title}</h1>
-
-      <p>
-        <i>{formatDate(post.timestamp)}</i>
-      </p>
-
-      <p>{post.author}</p>
+    <div className={styles.postCard}>
+      <div className={styles.imageContainer}>
+        <img src="./post-image.jpg" alt="post-image" />
+      </div>
+      <div className={styles.info}>
+        <h3 className={styles.title}>{post.title}</h3>
+        {/* <p className={styles.date}>
+          <i>{formatDate(post.timestamp)}</i>
+        </p> */}
+        {/* <p>{post.author}</p> */}
+        <div
+          className={styles.content}
+          dangerouslySetInnerHTML={{
+            __html: truncateStrign(post.content, 200),
+          }}
+        ></div>
+      </div>
     </div>
   );
 }

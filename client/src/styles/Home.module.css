@@ -3,6 +3,15 @@
   flex-direction: column;
 }
 
+/* posts */
 .postContainer {
-  flex: 1;
+  background-color: #006daa;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+
+  padding-inline: 40px;
+  padding-top: 50px;
+  padding-bottom: 50px;
 }

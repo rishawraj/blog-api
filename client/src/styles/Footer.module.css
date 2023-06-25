@@ -1,0 +1,29 @@
+.footer {
+  background-color: #006daa;
+  color: #fff;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.social {
+  display: flex;
+  gap: 15px;
+  font-size: 30px;
+  margin-bottom: 30px;
+}
+
+.footerContent {
+  font-size: 24px;
+  font-family: "Space Mono", monospace;
+  margin-bottom: 10px;
+}
+
+.footerText {
+  font-size: 18px;
+  font-family: "Space Mono", monospace;
+  /* font-family: "Limelight", cursive; */
+  margin-bottom: 10px;
+}
