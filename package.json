@@ -4,10 +4,10 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "nodemon ./bin/www",
-    "clientStart": "vite ./client",
-    "adminStart": "vite ./client-admin",
-    "devAll": "npm-run-all --parallel dev clientStart adminStart"
+    "server": "nodemon ./bin/www",
+    "client": "vite ./client",
+    "admin": "vite ./client-admin",
+    "dev": "npm-run-all --parallel server client admin"
   },
   "dependencies": {
     "bcrypt": "^5.1.0",

@@ -8,16 +8,26 @@ import Post from "./components/Post";
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 import Logout from "./components/Logout";
+import PrivateRoute from "./components/PrivateRouter";
 
 export default function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
+
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/post/:id" element={<Post />} />
-        <Route path="/logout" element={<Logout />} />
+
+        <Route
+          path="/logout"
+          element={
+            <PrivateRoute>
+              <Logout />
+            </PrivateRoute>
+          }
+        />
       </Routes>
     </Router>
   );

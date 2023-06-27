@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Navbar from "./Navbar";
 import CommentForm from "./CommentForm";
 import { toast } from "react-toastify";
 import styles from "../styles/Post.module.css";
+import { Link } from "react-router-dom";
+// import Footer from "../components/Footer";
 
 function Post() {
   const { id } = useParams();
@@ -13,19 +15,10 @@ function Post() {
   const [likeCounter, setLikeCounter] = useState(0);
 
   const handleLike = () => {
-    console.log("like");
-
-    // postid
-    console.log(id);
-
-    // // userid
-    // const user = JSON.parse(localStorage.getItem("user"));
-    // const userId = user._id;
-
     const token = localStorage.getItem("jwttoken");
 
     if (!token) {
-      toast.error("Please Login before liking");
+      toast.info("Please Login before liking");
       return;
     }
 
@@ -33,7 +26,6 @@ function Post() {
       method: "PUT",
       body: JSON.stringify({
         postId: id,
-        // userId: userId,
       }),
       headers: {
         "Content-Type": "application/json; charset=UTF-8",
@@ -41,11 +33,9 @@ function Post() {
       },
     })
       .then((res) => {
-        console.log(res);
         return res.json();
       })
       .then((data) => {
-        console.log(data);
         toast.success(data.message);
       });
 
@@ -66,11 +56,11 @@ function Post() {
         }
       })
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setPostData(data);
         setLikeCounter(data.likes.length);
       });
-  }, [likeCounter]);
+  }, [id, likeCounter]);
 
   useEffect(() => {
     fetch(`/api/comments/${id}`)
@@ -84,7 +74,7 @@ function Post() {
       .then((data) => {
         setComments(data);
       });
-  }, [counter]);
+  }, [id, counter]);
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -100,59 +90,145 @@ function Post() {
     return date.toLocaleString("en-US", options);
   };
 
+  const lightColors = [
+    "#f8f9fa", // Light Gray
+    "#f1f8e9", // Pale Green
+    "#f0f4c3", // Greenish Beige
+    "#fff9c4", // Light Yellow
+    "#fffde7", // Very Pale Yellow
+    "#e1f5fe", // Light Blue
+    "#e0f7fa", // Pale Cyan
+    "#f3e5f5", // Light Lavender
+    "#fce4ec", // Misty Pink
+    "#fff3e0", // Cream
+  ];
+
   return (
     <>
-      <div style={{ width: "70%", marginInline: "auto" }}>
-        <Navbar />
-        <div>
+      <Navbar />
+      {/* <div>
+        <Link
+          style={{
+            border: "2px solid black",
+            padding: "5px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            alignContent: "center",
+          }}
+          to={"/"}
+        >
+          <i className="fas fa-arrow-left"></i>
+        </Link>
+      </div> */}
+
+      <div
+        style={{
+          position: "fixed",
+          top: "80px",
+          left: "100px",
+          zIndex: "9999",
+        }}
+      >
+        <Link
+          style={{
+            border: "2px solid black",
+            padding: "5px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            alignContent: "center",
+            borderRadius: "7px",
+            backgroundColor: "#e1f5fe",
+          }}
+          to={"/"}
+        >
+          <i className="fas fa-arrow-left"></i>
+        </Link>
+      </div>
+
+      <div className={styles.container}>
+        <div className={styles.content}>
           <h1>{postData.title}</h1>
-          <h3>{postData.author}</h3>
-          <p>
-            <i>{formatDate(postData.timestamp)}</i>
-          </p>
-          <div dangerouslySetInnerHTML={{ __html: postData.content }} />
+          <div
+            style={{
+              display: "flex",
+              gap: "15px",
+              alignItems: "center",
+            }}
+          >
+            <p style={{ fontWeight: "400", fontSize: "18px" }}>
+              {postData.author}
+            </p>
+
+            <p style={{ color: "gray", fontSize: "15px" }}>
+              {formatDate(postData.timestamp)}
+            </p>
+          </div>
+          <img className={styles.image} src="../post-image.jpg" alt="image" />
+
+          <div
+            className={styles.para}
+            dangerouslySetInnerHTML={{ __html: postData.content }}
+          />
         </div>
+
+        <hr />
 
         <div
           style={{
             display: "flex",
             alignItems: "center",
             gap: "15px",
+            marginBlock: "15px",
           }}
         >
-          <p>Likes {likeCounter}</p>
-          <button onClick={handleLike}>like</button>
+          <button onClick={handleLike}>
+            <span className="like-icon">❤️</span>
+            <span className="like-text">{likeCounter} Likes</span>
+          </button>
         </div>
 
-        <hr />
-        <h3>Comments</h3>
-
-        <CommentForm id={id} setCounter={setCounter} />
-
-        <hr />
+        <CommentForm id={id} setCounter={incrementCounter} />
 
         {comments.map((comment, i) => {
           return (
             <div
               key={i}
               style={{
-                backgroundColor: "lightgray",
+                backgroundColor: `${
+                  lightColors[Math.floor(Math.random() * lightColors.length)]
+                }`,
                 padding: "10px",
                 marginBottom: "10px",
                 display: "flex",
+                flexDirection: "column",
                 justifyContent: "space-between",
                 alignItems: "start",
+                borderRadius: "10px",
+                border: "2px solid black",
               }}
             >
-              <div>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  width: "100%",
+                  marginBottom: "5px",
+                }}
+              >
                 <h3>{comment.username}</h3>
-                <p>{comment.content}</p>
+                <p style={{ color: "gray" }}>{formatDate(comment.timestamp)}</p>
               </div>
-              <p>{formatDate(comment.timestamp)}</p>
+              <p>{comment.content}</p>
             </div>
           );
         })}
+
+        {/*  */}
       </div>
+
+      {/* <Footer /> */}
     </>
   );
 }

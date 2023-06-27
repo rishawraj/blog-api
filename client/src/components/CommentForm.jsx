@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 
 function CommentForm({ id, setCounter }) {
@@ -9,10 +9,8 @@ function CommentForm({ id, setCounter }) {
     event.preventDefault();
     const token = localStorage.getItem("jwttoken");
 
-    // console.log(token);
-
     if (localStorage.getItem("jwttoken") === null) {
-      toast.error("Please Login First");
+      toast.info("Please login before commenting!");
       return;
     }
 
@@ -44,28 +42,37 @@ function CommentForm({ id, setCounter }) {
   return (
     <div
       style={{
-        backgroundColor: "lightblue",
-        border: "2px solid black",
-        padding: "10px",
+        // backgroundColor: "lightblue",
+        // border: "2px solid black",
+        padding: " 20px 0",
       }}
     >
       <form onSubmit={handleSubmit}>
         {user && (
-          <p>
-            Username:{" "}
-            <span style={{ fontWeight: "bold" }}>{user.username}</span>
-          </p>
+          <span style={{ fontWeight: "bold", marginRight: "10px" }}>
+            {user.username}
+          </span>
         )}
-        <label htmlFor="message">Message: </label>
+        <br />
         <input
+          style={{
+            width: "100%",
+            padding: "10px 5px",
+            margin: "10px 0",
+            borderRadius: "10px",
+            border: "2px solid black",
+          }}
           type="text"
           name="message"
+          placeholder="Comment"
+          required
           value={content}
           onChange={(e) => setContent(e.target.value)}
-        />
+        />{" "}
         <br />
-        <br />
-        <button type="submit">comment</button>
+        <button style={{}} type="submit">
+          comment
+        </button>
       </form>
       <ToastContainer />
     </div>

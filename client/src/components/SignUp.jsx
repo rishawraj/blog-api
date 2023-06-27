@@ -3,6 +3,8 @@ import Navbar from "./Navbar";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import styles from "../styles/SignUp.module.css";
+import Footer from "./Footer";
 
 function SignUp() {
   const [username, setUsername] = useState("");
@@ -55,55 +57,51 @@ function SignUp() {
 
   return (
     <>
-      <div
-        style={{
-          width: "70%",
-          marginInline: "auto",
-          backgroundColor: "lightyellow",
-        }}
-      >
+      <div className={styles.outer}>
         <Navbar />
-        <div>SignUp</div>
+        <div className={styles.content}>
+          <h1>Sign Up</h1>
 
-        <Link to="/login">Login</Link>
+          <form onSubmit={handleSubmit}>
+            <input
+              type="text"
+              name="username"
+              placeholder="Username"
+              autoComplete="off"
+              required
+              value={username}
+              onChange={(e) => {
+                setUsername(e.target.value);
+              }}
+            />
+            <input
+              type="text"
+              name="password"
+              placeholder="Password"
+              required
+              autoComplete="off"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <input
+              type="text"
+              name="confirmPassword"
+              placeholder="Confirm Password"
+              required
+              autoComplete="off"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
 
-        <form onSubmit={handleSubmit}>
-          <br />
-          <label htmlFor="username">Username: </label>
-          <input
-            type="text"
-            name="username"
-            required
-            value={username}
-            onChange={(e) => {
-              setUsername(e.target.value);
-            }}
-          />
-          <br />
-          <br />
-          <label htmlFor="password">Password: </label>
-          <input
-            type="text"
-            name="password"
-            required
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <br />
-          <br />
-          <label htmlFor="confirmPassword">Confirm Password: </label>
-          <input
-            type="text"
-            name="confirmPassword"
-            required
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
-          <br />
-          <br />
+            <button type="submit">Sign Up</button>
+          </form>
 
-          <button type="submit">submit</button>
-        </form>
+          <p>
+            Already have an account? <Link to="/login">Login</Link>
+          </p>
+        </div>
+
+        <Footer />
       </div>
       <ToastContainer />
     </>

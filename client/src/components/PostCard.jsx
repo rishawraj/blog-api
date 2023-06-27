@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../styles/PostCard.module.css";
 
 const formatDate = (dateString) => {
@@ -29,12 +29,32 @@ function PostCard({ post }) {
       <div className={styles.imageContainer}>
         <img src="./post-image.jpg" alt="post-image" />
       </div>
+
       <div className={styles.info}>
-        <h3 className={styles.title}>{post.title}</h3>
-        {/* <p className={styles.date}>
-          <i>{formatDate(post.timestamp)}</i>
-        </p> */}
-        {/* <p>{post.author}</p> */}
+        <div
+          style={{
+            display: "flex",
+            // gap: "30px",
+            justifyContent: "space-between",
+            alignItems: "flex-start",
+            width: "100%",
+            // alignItems: "center",
+            // paddingRight: "10px",
+          }}
+        >
+          <h3 className={styles.title}>{post.title}</h3>
+          <p
+            style={{
+              paddingTop: "10px",
+              width: "100px",
+              display: "flex",
+              justifyContent: "flex-end",
+            }}
+          >
+            ❤️ {post.likes.length}
+          </p>
+        </div>
+
         <div
           className={styles.content}
           dangerouslySetInnerHTML={{

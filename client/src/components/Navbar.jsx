@@ -27,9 +27,15 @@ function Navbar() {
       </div>
 
       <div className="nav-links">
-        <Link className={styles.button} to={"/login"}>
-          Login
-        </Link>
+        {user ? (
+          <Link className={styles.button} to={"/logout"}>
+            Logout
+          </Link>
+        ) : (
+          <Link className={styles.button} to={"/login"}>
+            Login
+          </Link>
+        )}
       </div>
     </nav>
   );

@@ -93,8 +93,11 @@ exports.login_post = [
     if (!errors.isEmpty()) {
       return res.json({ errors: errors.array() });
     }
-
+    console.log("hi");
     const user = await User.findOne({ username: req.body.username });
+    if (!user) {
+      return res.json({ message: "Incorrect Password or Username" });
+    }
 
     bcrypt.compare(req.body.password, user.password, (err, result) => {
       if (result) {
@@ -103,15 +106,16 @@ exports.login_post = [
           username: user.username,
           password: user.password,
         };
+
         const token = jwt.sign(payload, process.env.JWTSECRET, {
           expiresIn: "1d",
         });
-        // console.log(token);
-        // console.log(user);
-
         return res.json({ token: token, user: user });
       } else {
-        return res.json({ message: "Incorrect Password or Username" });
+        return res.json({
+          message: "Incorrect Password or Username",
+          err: err,
+        });
       }
     });
   },

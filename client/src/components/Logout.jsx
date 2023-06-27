@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
+import Footer from "./Footer";
+import styles from "../styles/Logout.module.css";
 
 function Logout() {
   const navigate = useNavigate();
@@ -31,18 +33,19 @@ function Logout() {
   };
 
   return (
-    <>
+    <div className={styles.container}>
       <Navbar />
-      <h1>Logout</h1>
-      {user && (
-        <p style={{ color: "cadetblue", fontWeight: "bold" }}>
-          Username: {user.username}
-          <br />
-          <br />
-          <button onClick={handleClick}>logout</button>
-        </p>
-      )}
-    </>
+      <div className={styles.content}>
+        <h1>Logout</h1>
+        {user && (
+          <>
+            <p>Username: {user.username}</p>
+            <button onClick={handleClick}>Log Out</button>
+          </>
+        )}
+      </div>
+      <Footer />
+    </div>
   );
 }
 
